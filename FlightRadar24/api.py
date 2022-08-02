@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import json
 from .core import Core
 from .flight import Flight
 from .request import APIRequest
@@ -20,7 +20,7 @@ class FlightRadar24API(object):
         "air": "1",
         "vehicles": "1",
         "estimated": "1",
-        "maxage": "14400",
+        "maxage": "1440000",
         "gliders": "1",
         "stats": "1",
         "limit": "5000"
@@ -93,7 +93,14 @@ class FlightRadar24API(object):
         request = APIRequest(Core.flight_data_url.format(flight_id), headers = Core.json_headers)
         return request.get_content()
 
-    def get_flights(self, airline = None, bounds = None):
+    def get_flight_playback(self, flight_id):
+        url = Core.flight_playback_url.format(flight_id)
+        request = APIRequest(url, headers=Core.json_headers)
+        content = request.get_content()
+        jContent = json.loads(content)
+        return jContent['result']['response']['data']['flight']['track']
+
+    def get_flights(self, airline = None, bounds = None, flight = None):
 
         """
         Parameter airline: must be the airline ICAO. Ex: "DAL"
@@ -105,6 +112,7 @@ class FlightRadar24API(object):
         # Insert the parameters "airline" and "bounds" in the dictionary for the request.
         if airline: request_params["airline"] = airline
         if bounds: request_params["bounds"] = bounds.replace(",", "%2C")
+        if flight: request_params["flight"] = flight.replace(",", "%2C")
 
         # Get all flights from Data Live Flightradar24.
         request = APIRequest(Core.real_time_flight_tracker_data_url, request_params, Core.json_headers)

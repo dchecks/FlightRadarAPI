@@ -5,6 +5,7 @@ class Core(object):
     # Base URLs.
     cdn_flightradar_base_url = "https://cdn.flightradar24.com"
     flightradar_base_url = "https://www.flightradar24.com"
+    flightradar_api_base_url = "https://api.flightradar24.com"
     data_live_base_url = "https://data-live.flightradar24.com"
     data_cloud_base_url = "https://data-cloud.flightradar24.com"
 
@@ -14,6 +15,9 @@ class Core(object):
     # Flights data URLs.
     real_time_flight_tracker_data_url = data_cloud_base_url + "/zones/fcgi/feed.js"
     flight_data_url = data_live_base_url + "/clickhandler/?flight={}"
+
+    # Flight playback URLs
+    flight_playback_url = flightradar_api_base_url + "/common/v1/flight-playback.json?flightId={}"
 
     # Airports data URLs.
     airport_data_url = flightradar_base_url + "/airports/traffic-stats/?airport={}"
