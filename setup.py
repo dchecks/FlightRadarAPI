@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from FlightRadar24 import __version__
+from flightradar24 import __version__
 from setuptools import setup, find_packages
 
 with open("README.md") as file:
