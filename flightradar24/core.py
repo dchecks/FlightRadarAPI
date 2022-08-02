@@ -15,6 +15,7 @@ class Core(object):
     # Flights data URLs.
     real_time_flight_tracker_data_url = data_cloud_base_url + "/zones/fcgi/feed.js"
     flight_data_url = data_live_base_url + "/clickhandler/?flight={}"
+    flight_list_url = flightradar_api_base_url + "/common/v1/flight/list.json?query={}}&fetchBy={}}&limit={}"
 
     # Flight playback URLs
     flight_playback_url = flightradar_api_base_url + "/common/v1/flight-playback.json?flightId={}"

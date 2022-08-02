@@ -100,6 +100,18 @@ class FlightRadar24API(object):
         jContent = json.loads(content)
         return jContent['result']['response']['data']['flight']['track']
 
+    def get_flight_list(self, flight):
+        request_params = self.__real_time_flight_tracker_config.copy()
+        request_params["query"] = flight.replace(",", "%2C")
+        request_params["fetchBy"] = "flight"
+        request_params["limit"] = 50
+
+        request = APIRequest(Core.flight_list_url, request_params, Core.json_headers)
+        content = request.get_content()
+        jContent = json.loads(content)
+
+        return jContent['result']['response']['data']
+
     def get_flights(self, airline = None, bounds = None, flight = None):
 
         """
